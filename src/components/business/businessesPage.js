@@ -2,8 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import BussinessesList from './businessesList';
 import PropTypes from 'prop-types'
+import { fetchBusinesses } from '../../store/actions/businessesActions'
 
 class BusinessesPage extends React.Component {
+    componentDidMount() {
+        this.props.fetchBusinesses();
+    }
+
     render() {
         return (
             <div className="container">
@@ -14,7 +19,8 @@ class BusinessesPage extends React.Component {
 }
 
 BusinessesPage.propTypes = {
-    businesses: PropTypes.array.isRequired
+    businesses: PropTypes.array.isRequired,
+    fetchBusinesses: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -24,5 +30,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    { fetchBusinesses }
 )(BusinessesPage);
