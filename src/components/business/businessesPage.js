@@ -1,13 +1,29 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import BussinessesList from './businessesList';
+import PropTypes from 'prop-types'
 
 class BusinessesPage extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1>Businesses Page</h1>
+                <h1>Businesses</h1>
+                <BussinessesList businesses={this.props.businesses} />
             </div>
         );
     }
 }
 
-export default BusinessesPage;
+BusinessesPage.propTypes = {
+    businesses: PropTypes.array.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        businesses: state.businesses
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(BusinessesPage);

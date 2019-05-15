@@ -1,4 +1,4 @@
-export default function business(state = [], action = {}) {
+export default function businesses(state = [], action = {}) {
     switch(action.type) {
         default: 
             return state;
