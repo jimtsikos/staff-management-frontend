@@ -7,7 +7,6 @@ class BusinessesPage extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1>Businesses</h1>
                 <BussinessesList businesses={this.props.businesses} />
             </div>
         );
