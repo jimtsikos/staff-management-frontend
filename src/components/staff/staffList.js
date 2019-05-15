@@ -2,9 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 export default function StaffList ({ staff, business }) {
-    const style = {
-        "margin-top" : "20px"
-    }
 
     const emptyMessage = (
         <div className="alert alert-info" role="alert">
@@ -19,7 +16,7 @@ export default function StaffList ({ staff, business }) {
     );
 
     return (
-        <div className="container" style={style}>
+        <div className="container">
             { staff.length === 0 || staff === undefined ? emptyMessage : staffList }
         </div>
     )

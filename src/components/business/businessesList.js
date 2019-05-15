@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 export default function BussinessesList({ businesses }) {
     const style = {
@@ -19,8 +20,11 @@ export default function BussinessesList({ businesses }) {
     );
 
     return (
-        <div className="container" style={style}>
-            { businesses.length === 0 ? emptyMessage : businessesList }
+        <div className="container">
+            <Link to="/business/create" className="btn btn-info">Add Business</Link>
+            <div style={style}>
+                { businesses.length === 0 ? emptyMessage : businessesList }
+            </div>
         </div>
     );
 }
