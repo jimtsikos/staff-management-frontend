@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BusinessesPage from './components/business/businessesPage';
+import StaffPage from './components/staff/staffPage';
 
 function App() {
   return (
@@ -12,10 +13,14 @@ function App() {
           <li className="nav-item">
             <Link to="/business" className="nav-link">Businesses</Link>
           </li>
+          <li className="nav-item">
+            <Link to="/staff" className="nav-link">Staff</Link>
+          </li>
         </ul>
       </nav>
 
       <Route path="/business" component={BusinessesPage}/>
+      <Route path="/staff" component={StaffPage}/>
     </div>
   );
 }

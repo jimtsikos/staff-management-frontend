@@ -8,7 +8,7 @@ export default function BussinessesList({ businesses }) {
         </div>
     );
     
-    const bussinessesList = (
+    const businessesList = (
         <div>
             Here will be loaded the list of businesses.
         </div>
@@ -16,7 +16,7 @@ export default function BussinessesList({ businesses }) {
 
     return (
         <div className="container">
-            { businesses.length === 0 ? emptyMessage : bussinessesList }
+            { businesses.length === 0 ? emptyMessage : businessesList }
         </div>
     );
 }
