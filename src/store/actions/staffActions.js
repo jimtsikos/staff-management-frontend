@@ -15,7 +15,7 @@ export const fetchStaff = (business_id) => {
     return (dispatch) => {
         return axios.get(`${apiUrl}/staff/business/${business_id}`)
         .then(response => {
-            dispatch(setStaff(response.data))
+                dispatch(setStaff(response.data))
         })
         .catch(error => {
             throw(error);
