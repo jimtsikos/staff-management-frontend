@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
+import Business from './business'
 
-export default function BussinessesList({ businesses }) {
+export default function BusinessesList({ businesses }) {
     const style = {
         "marginTop" : "20px"
     }
@@ -14,9 +15,24 @@ export default function BussinessesList({ businesses }) {
     );
     
     const businessesList = (
-        <div>
-            Here will be loaded the list of businesses.
-        </div>
+        <table className="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th colSpan="3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {businesses.map(business => {
+                return (
+                  <Business business={ business } key={ business.id } />
+                );
+              })}
+            </tbody>
+        </table>
     );
 
     return (
@@ -29,6 +45,6 @@ export default function BussinessesList({ businesses }) {
     );
 }
 
-BussinessesList.propTypes = {
+BusinessesList.propTypes = {
     businesses: PropTypes.array.isRequired
 }

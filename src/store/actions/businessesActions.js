@@ -1,4 +1,4 @@
-import { SET_BUSINESSES } from './type'
+import { SET_BUSINESSES, ADD_BUSINESS } from './type'
 import axios from 'axios';
 
 const apiUrl = 'http://localhost:5000';
@@ -22,11 +22,18 @@ export const fetchBusinesses = () => {
     };
 };
 
-export const saveBusiness = (data) => {
+export const addBusiness = business => {
+    return {
+        type: ADD_BUSINESS,
+        business
+    }
+}
+
+export const saveBusiness = data => {
     return (dispatch) => {
         return axios.post(`${apiUrl}/business`, { name: data.name, location: data.location, type: data.type })
         .then(response => {
-            
+            dispatch(addBusiness(response.data))
         })
         .catch(error => {
             throw(error);
