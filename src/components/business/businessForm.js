@@ -6,7 +6,9 @@ class BusinessForm extends React.Component {
         name: '',
         location: '',
         type: '',
-        errors: {}
+        errors: {},
+        sending: false,
+        buttonText: "Submit"
     }
 
     handleChange = (e) => {
@@ -19,6 +21,19 @@ class BusinessForm extends React.Component {
         });
     }
 
+    toggleButtonText = () => {
+        if (this.state.sending) {
+            return (
+                <span>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span> Sending...</span>
+                </span>
+            );
+        } else {
+            return "Submit";
+        }
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -27,6 +42,13 @@ class BusinessForm extends React.Component {
         if (this.state.name === '') errors.name = "Name can't be empty";
         if (this.state.location === '') errors.location = "Location can't be empty";
         this.setState({ errors });
+        const isValid = Object.keys(errors).length === 0;
+
+        if (isValid) {
+            const { name, location, type } = this.state;
+            this.setState({ sending: true });
+            //this.props.saveBusiness({ name, location, type });
+        }
     }
 
     render() {
@@ -70,7 +92,11 @@ class BusinessForm extends React.Component {
                                     <option value="cafe">Cafe</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" 
+                            className="btn btn-primary" 
+                            disabled={this.state.sending ? "disabled" : ""}>
+                                {  this.toggleButtonText() }
+                    </button>
                 </form>
             </div>
         );

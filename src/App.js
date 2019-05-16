@@ -7,7 +7,7 @@ import BusinessForm from './components/business/businessForm'
 
 function App() {
   const style = {
-      "margin-bottom" : "20px"
+      "marginBottom" : "20px"
   }
 
   return (
