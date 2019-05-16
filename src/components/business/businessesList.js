@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function BussinessesList({ businesses }) {
     const style = {
-        "margin-top" : "20px"
+        "marginTop" : "20px"
     }
 
     const emptyMessage = (

@@ -21,3 +21,15 @@ export const fetchBusinesses = () => {
         });
     };
 };
+
+export const saveBusiness = (data) => {
+    return (dispatch) => {
+        return axios.post(`${apiUrl}/business`, { name: data.name, location: data.location, type: data.type })
+        .then(response => {
+            
+        })
+        .catch(error => {
+            throw(error);
+        });
+    };
+}

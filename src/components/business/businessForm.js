@@ -1,6 +1,9 @@
 import React from 'react'
 import classnames from 'classnames'
-
+import { connect } from 'react-redux'
+import { saveBusiness } from '../../store/actions/businessesActions'
+import { Redirect } from 'react-router-dom'
+ 
 class BusinessForm extends React.Component {
     state = {
         name: '',
@@ -8,7 +11,7 @@ class BusinessForm extends React.Component {
         type: '',
         errors: {},
         sending: false,
-        buttonText: "Submit"
+        done: false
     }
 
     handleChange = (e) => {
@@ -37,7 +40,7 @@ class BusinessForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        //validation
+        // validation
         let errors = {};
         if (this.state.name === '') errors.name = "Name can't be empty";
         if (this.state.location === '') errors.location = "Location can't be empty";
@@ -47,13 +50,27 @@ class BusinessForm extends React.Component {
         if (isValid) {
             const { name, location, type } = this.state;
             this.setState({ sending: true });
-            //this.props.saveBusiness({ name, location, type });
+            this.props.saveBusiness({ name, location, type }).then(
+                () => { this.setState({ done: true }) },
+                (err) => {
+                    let errors = {};
+                    errors.global = err.response.statusText;
+                    this.setState({ errors, sending: false });
+                }
+            );
         }
     }
 
     render() {
-        return (
+        const form = (
             <div className="container">
+                {!!this.state.errors.global &&
+                (
+                    <div className="alert alert-danger" role="alert">
+                        { this.state.errors.global }
+                    </div>
+                )}
+
                 <form onSubmit={this.handleSubmit}>
                     <div className={classnames("form-group", { error: !!this.state.errors.name })}>
                         <label htmlFor="name">Name</label>
@@ -99,8 +116,17 @@ class BusinessForm extends React.Component {
                     </button>
                 </form>
             </div>
+        )
+
+        return (
+            <div>
+                { this.state.done ? <Redirect to="/businesses" /> : form }
+            </div>
         );
     }
 }
 
-export default BusinessForm;
+export default connect(
+    null,
+    { saveBusiness }
+)(BusinessForm);

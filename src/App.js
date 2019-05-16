@@ -16,7 +16,7 @@ function App() {
         <Link to={'/'} className="navbar-brand">Staff Management</Link>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink to="/business" className="nav-link">Businesses</NavLink>
+            <NavLink to="/businesses" className="nav-link">Businesses</NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/staff" className="nav-link">Staff</NavLink>
@@ -24,7 +24,7 @@ function App() {
         </ul>
       </nav>
 
-      <Route exact path="/business" component={BusinessesPage}/>
+      <Route exact path="/businesses" component={BusinessesPage}/>
       <Route path="/business/create" component={BusinessForm}/>
       <Route path="/staff" component={StaffPage}/>
     </div>
