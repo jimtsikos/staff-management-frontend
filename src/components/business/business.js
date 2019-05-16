@@ -14,15 +14,15 @@ export default function Business({ business }) {
       <td>{ business.location }</td>
       <td>{ business.type }</td>
       <td>
-        {/* <Link to={`/staff/business`} className="btn btn-primary" onClick={() => showStaff(id, name)}>Show Staff</Link> */}
+        <Link to={`business/${business.id}/staff`} className="btn btn-primary">Show Staff</Link>
       </td>
       <td>
-        {/* <Link to={`/business/${id}`} className="btn btn-warning">Edit</Link> */}
+        <Link to={`/business/edit/${business.id}`} className="btn btn-warning">Edit</Link>
       </td>
       <td>
-        {/* <button className="btn btn-danger" type="button" style={ button } onClick={() => onDelete(id)}>
+        {<button className="btn btn-danger" type="button" style={ button }>
           Remove
-        </button> */}
+        </button>}
       </td>
     </tr>
   );

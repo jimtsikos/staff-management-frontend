@@ -18,14 +18,12 @@ function App() {
           <li className="nav-item">
             <NavLink to="/businesses" className="nav-link">Businesses</NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink to="/business/6/staff" className="nav-link">Staff</NavLink>
-          </li>
         </ul>
       </nav>
 
       <Route exact path="/businesses" component={BusinessesPage}/>
       <Route path="/business/create" component={BusinessForm}/>
+      <Route path="/business/edit/:id" component={BusinessForm}/>
       <Route path="/business/:id/staff" component={StaffPage}/>
     </div>
   );
