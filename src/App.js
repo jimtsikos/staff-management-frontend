@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import BusinessesPage from './components/business/businessesPage';
 import StaffPage from './components/staff/staffPage';
 import BusinessForm from './components/business/businessForm'
+import StaffForm from './components/staff/staffForm';
 
 function App() {
   const style = {
@@ -25,6 +26,8 @@ function App() {
       <Route path="/business/create" component={BusinessForm}/>
       <Route path="/business/edit/:id" component={BusinessForm}/>
       <Route path="/business/:id/staff" component={StaffPage}/>
+      <Route path="/staff/member/create" component={StaffForm}/>
+      <Route path="/staff/member/create/business/:id" component={StaffForm}/>
     </div>
   );
 }
