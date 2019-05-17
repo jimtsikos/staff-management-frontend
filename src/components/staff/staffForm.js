@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Redirect } from 'react-router-dom';
 import { fetchBusinesses } from '../../store/actions/businessesActions';
 import { saveMember } from "../../store/actions/staffActions";
+import CreateOptions from '../common/options'
 
 class StaffForm extends React.Component {
     state = {
@@ -48,14 +49,6 @@ class StaffForm extends React.Component {
         } else {
             return "Submit";
         }
-    }
-
-    makeOption = (x) => {
-        return <option value={x.id} key={x.id}>{x.name} | { this.capitalizeFirstLetter(x.type) }</option>;
-    };
-
-    capitalizeFirstLetter = (s) => {
-        return s !== undefined && s !== null ? s.charAt(0).toUpperCase() + s.slice(1) : "No business type selected";
     }
 
     handleSubmit = (e) => {
@@ -104,9 +97,7 @@ class StaffForm extends React.Component {
                                 value={this.state.business} 
                                 onChange={this.handleChange}>
                                     <option value="0">Select business</option>
-                                    {
-                                        this.props.businesses.map(this.makeOption)
-                                    }
+                                    <CreateOptions properties={ this.props.businesses } />
                         </select>
                         <span className="text-danger">{ this.state.errors.business }</span>
                     </div>

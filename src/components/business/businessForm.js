@@ -2,7 +2,9 @@ import React from 'react'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { saveBusiness } from '../../store/actions/businessesActions'
+import { fetchBusinessTypes } from '../../store/actions/enumTypes'
 import { Redirect } from 'react-router-dom'
+import CreateOptions from "../common/options";
  
 class BusinessForm extends React.Component {
     state = {
@@ -12,6 +14,10 @@ class BusinessForm extends React.Component {
         errors: {},
         sending: false,
         done: false
+    }
+
+    componentDidMount() {
+        this.props.fetchBusinessTypes();
     }
 
     handleChange = (e) => {
@@ -102,11 +108,7 @@ class BusinessForm extends React.Component {
                                 value={this.state.type} 
                                 onChange={this.handleChange}>
                                     <option value="">Select one type</option>
-                                    <option value="bar">Bar</option>
-                                    <option value="restaurant">Restaurant</option>
-                                    <option value="club">Club</option>
-                                    <option value="hotel">Hotel</option>
-                                    <option value="cafe">Cafe</option>
+                                    <CreateOptions properties={ this.props.businessTypes } />
                         </select>
                     </div>
                     <button type="submit" 
@@ -126,7 +128,13 @@ class BusinessForm extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        businessTypes: state.enumTypes
+    }
+}
+
 export default connect(
-    null,
-    { saveBusiness }
+    mapStateToProps,
+    { saveBusiness, fetchBusinessTypes }
 )(BusinessForm);

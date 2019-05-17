@@ -4,11 +4,13 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import businesses from './reducers/businessesReducer'
 import staff from './reducers/staffReducer'
+import enumTypes from './reducers/enumTypesReducer'
 
 export default function configureStore () {  
     const rootReducer = combineReducers({
         businesses,
-        staff
+        staff,
+        enumTypes
     });
   
     return createStore(
