@@ -6,6 +6,7 @@ export const DELETE_BUSINESS = 'DELETE_BUSINESS';
 // Staff
 export const SET_STAFF = 'SET_STAFF';
 export const ADD_MEMBER = 'ADD_MEMBER';
+export const DELETE_MEMBER = 'DELETE_MEMBER';
 
 // Enum Types
 export const SET_BUSINESS_TYPES = 'SET_BUSINESS_TYPES';

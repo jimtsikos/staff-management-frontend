@@ -1,4 +1,4 @@
-import { SET_STAFF, ADD_MEMBER } from './type';
+import { SET_STAFF, ADD_MEMBER, DELETE_MEMBER } from './type';
 
 import axios from 'axios';
 
@@ -42,6 +42,25 @@ export const saveMember = data => {
         })
         .then(response => {
             dispatch(addMember(response.data))
+        })
+        .catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export const memberDeleted = id => {
+    return {
+        type: DELETE_MEMBER,
+        id
+    }
+}
+
+export const deleteMember = id => {
+    return (dispatch) => {
+        return axios.delete(`${apiUrl}/staff/member/${id}`)
+        .then(response => {
+            dispatch(memberDeleted(id))
         })
         .catch(error => {
             throw(error);

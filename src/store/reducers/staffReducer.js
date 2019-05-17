@@ -1,4 +1,4 @@
-import { SET_STAFF, ADD_MEMBER } from '../actions/type'
+import { SET_STAFF, ADD_MEMBER, DELETE_MEMBER } from '../actions/type'
 
 export default function staff(state = [], action = {}){
     switch (action.type) {
@@ -9,6 +9,8 @@ export default function staff(state = [], action = {}){
                 ...state,
                 action.member
             ];
+        case DELETE_MEMBER:
+            return state.filter(x => x.id !== action.id);
         default:
             return state;
     }

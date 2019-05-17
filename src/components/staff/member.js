@@ -6,7 +6,20 @@ const button = {
   width: '120px'
 };
 
-export default function Member ({ member }) {
+export default function Member ({ member, deleteMember, getErrors }) {
+  const handleDelete = (e) => {
+    e.preventDefault();
+
+    deleteMember(member.id).then(
+      () => { getErrors("") },
+      (err) => {
+        let errors = [];
+        err.response.data.errors.map(x => errors.push(x.msg))
+        getErrors(errors);
+      }
+    );
+  }
+
   return (
     <tr>
       <td>{ member.id }</td>
@@ -19,7 +32,7 @@ export default function Member ({ member }) {
         <Link to={`/staff/${member.id}`} className="btn btn-primary">Edit</Link>
       </td>
       <td>
-        {<button className="btn btn-danger" type="button" style={ button }>
+        {<button className="btn btn-danger" type="button" style={ button } onClick={handleDelete}>
           Remove
         </button>}
       </td>
@@ -28,5 +41,7 @@ export default function Member ({ member }) {
 };
 
 Member.propTypes = {
-    member: PropTypes.object.isRequired
+    member: PropTypes.object.isRequired,
+    deleteMember: PropTypes.func.isRequired, 
+    getErrors: PropTypes.func.isRequired
 }

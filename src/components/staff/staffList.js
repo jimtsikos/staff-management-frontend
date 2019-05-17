@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import Member from './member';
 
-export default function StaffList ({ staff, business }) {
+export default function StaffList ({ staff, business, deleteMember, getErrors }) {
     const style = {
         "marginTop" : "20px"
     }
@@ -36,7 +36,7 @@ export default function StaffList ({ staff, business }) {
             <tbody>
             {staff.map(member => {
                 return (
-                    <Member member={ member } key={ member.id } />
+                    <Member member={ member } key={ member.id } deleteMember={deleteMember} getErrors={getErrors} />
                 );
             })}
             </tbody>
@@ -60,5 +60,7 @@ export default function StaffList ({ staff, business }) {
 
 StaffList.propTypes = {
     staff: PropTypes.array.isRequired,
-    business: PropTypes.array.isRequired
+    business: PropTypes.array.isRequired,
+    deleteMember:  PropTypes.func.isRequired, 
+    getErrors: PropTypes.func.isRequired
 }
