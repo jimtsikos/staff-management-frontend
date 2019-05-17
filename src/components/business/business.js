@@ -6,7 +6,20 @@ const button = {
   width: '120px'
 };
 
-export default function Business({ business }) {
+export default function Business({ business, deleteBusiness, getErrors }) {
+  const handleDelete = (e) => {
+    e.preventDefault();
+
+    deleteBusiness(business.id).then(
+      () => { getErrors("") },
+      (err) => {
+        let errors = [];
+        err.response.data.errors.map(x => errors.push(x.msg))
+        getErrors(errors);
+      }
+    );
+  }
+
   return (
     <tr>
       <td>{ business.id }</td>
@@ -20,7 +33,7 @@ export default function Business({ business }) {
         <Link to={`/business/edit/${business.id}`} className="btn btn-warning">Edit</Link>
       </td>
       <td>
-        {<button className="btn btn-danger" type="button" style={ button }>
+        {<button className="btn btn-danger" type="button" style={ button } onClick={handleDelete}>
           Remove
         </button>}
       </td>
@@ -29,5 +42,6 @@ export default function Business({ business }) {
 };
 
 Business.propTypes = {
-    business: PropTypes.object.isRequired
+    business: PropTypes.object.isRequired,
+    deleteBusiness: PropTypes.func.isRequired
 }

@@ -1,4 +1,4 @@
-import { SET_BUSINESSES, ADD_BUSINESS } from '../actions/type'
+import { SET_BUSINESSES, ADD_BUSINESS, DELETE_BUSINESS } from '../actions/type'
 
 export default function businesses(state = [], action = {}) {
     switch(action.type) {
@@ -9,6 +9,8 @@ export default function businesses(state = [], action = {}) {
                 ...state,
                 action.business
             ]
+        case DELETE_BUSINESS:
+            return state.filter(x => x.id !== action.id);
         default: 
             return state;
     }

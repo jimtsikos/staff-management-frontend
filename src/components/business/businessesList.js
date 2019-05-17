@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import Business from './business'
 
-export default function BusinessesList({ businesses }) {
+export default function BusinessesList({ businesses, deleteBusiness, getErrors }) {
     const style = {
         "marginTop" : "20px"
     }
@@ -13,7 +13,7 @@ export default function BusinessesList({ businesses }) {
             There are no businesses available yet.
         </div>
     );
-    
+
     const businessesList = (
         <table className="table">
             <thead>
@@ -28,7 +28,7 @@ export default function BusinessesList({ businesses }) {
             <tbody>
               {businesses.map(business => {
                 return (
-                  <Business business={ business } key={ business.id } />
+                  <Business business={ business } key={ business.id } deleteBusiness={ deleteBusiness } getErrors={ getErrors } />
                 );
               })}
             </tbody>
@@ -46,5 +46,7 @@ export default function BusinessesList({ businesses }) {
 }
 
 BusinessesList.propTypes = {
-    businesses: PropTypes.array.isRequired
+    businesses: PropTypes.array.isRequired,
+    deleteBusiness: PropTypes.func.isRequired,
+    getErrors: PropTypes.func.isRequired
 }
