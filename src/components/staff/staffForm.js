@@ -55,7 +55,7 @@ class StaffForm extends React.Component {
     };
 
     capitalizeFirstLetter = (s) => {
-        return s.charAt(0).toUpperCase() + s.slice(1);
+        return s !== undefined && s !== null ? s.charAt(0).toUpperCase() + s.slice(1) : "No business type selected";
     }
 
     handleSubmit = (e) => {
