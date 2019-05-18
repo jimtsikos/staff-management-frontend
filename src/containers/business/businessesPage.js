@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import BussinessesList from './businessesList';
+import BussinessesList from '../../components/business/businessesList';
 import PropTypes from 'prop-types'
 import { fetchBusinesses, deleteBusiness } from '../../store/actions/businessesActions'
-import ErrorMessages from '../common/errorMessages';
+import ErrorMessages from '../../components/common/errorMessages';
 
 class BusinessesPage extends React.Component {
     state = {

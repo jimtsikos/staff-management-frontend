@@ -1,9 +1,5 @@
 import React from 'react'
 import classnames from 'classnames'
-import { connect } from 'react-redux'
-import { saveBusiness, fetchBusiness, updateBusiness } from '../../store/actions/businessesActions'
-import { fetchBusinessTypes } from '../../store/actions/enumTypes'
-import { Redirect } from 'react-router-dom'
 import CreateOptions from "../common/options";
  
 class BusinessForm extends React.Component {
@@ -13,25 +9,17 @@ class BusinessForm extends React.Component {
         location: this.props.business ? this.props.business.location :'',
         type: this.props.business ? this.props.business.type :'',
         errors: {},
-        sending: false,
-        done: false
+        sending: false
     }
 
     componentWillReceiveProps = nextProps => {
-        if(nextProps.business !== undefined) {
+        if(nextProps.business !== undefined && nextProps.business !== null) {
             this.setState({
                 id: nextProps.business.id,
                 name: nextProps.business.name,
                 location: nextProps.business.location,
                 type: nextProps.business.type
             });
-        }
-    }
-
-    componentDidMount() {
-        this.props.fetchBusinessTypes();
-        if (this.props.match.params.id) {
-            this.props.fetchBusiness(this.props.match.params.id)
         }
     }
 
@@ -71,32 +59,19 @@ class BusinessForm extends React.Component {
         if (isValid) {
             const { id, name, location, type } = this.state;
             this.setState({ sending: true });
-
-            if (id) {
-                this.props.updateBusiness({ id, name, location, type }).then(
-                    () => { this.setState({ done: true }) },
-                    (err) => {
-                        let errors = {};
-                        errors.global = err.response.statusText;
-                        this.setState({ errors, sending: false });
-                    }
-                );
-            } else {
-                this.props.saveBusiness({ name, location, type }).then(
-                    () => { this.setState({ done: true }) },
-                    (err) => {
-                        let errors = {};
-                        errors.global = err.response.statusText;
-                        this.setState({ errors, sending: false });
-                    }
-                );
-            }
+            this.props.saveBusiness({ id, name, location, type })
+            .catch((err) => {
+                let errors = {};
+                errors.global = err.response.statusText;
+                this.setState({ errors, sending: false });
+            });
+            
         }
     }
 
     render() {
         const form = (
-            <div className="container">
+            <div>
                 {!!this.state.errors.global &&
                 (
                     <div className="alert alert-danger" role="alert">
@@ -149,26 +124,10 @@ class BusinessForm extends React.Component {
 
         return (
             <div>
-                { this.state.done ? <Redirect to="/businesses" /> : form }
+                { form }
             </div>
         );
     }
 }
 
-function mapStateToProps(state, props) {
-    let obj = {
-        businessTypes: state.enumTypes,
-        business: null
-    };
-
-    if (props.match.params.id) {
-        obj.business = state.businesses.find(x => x.id === parseInt(props.match.params.id))
-    }
-
-    return obj;
-}
-
-export default connect(
-    mapStateToProps,
-    { saveBusiness, fetchBusinessTypes, fetchBusiness, updateBusiness }
-)(BusinessForm);
+export default BusinessForm;
