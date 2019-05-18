@@ -1,23 +1,38 @@
 import React from 'react'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
-import { saveBusiness } from '../../store/actions/businessesActions'
+import { saveBusiness, fetchBusiness, updateBusiness } from '../../store/actions/businessesActions'
 import { fetchBusinessTypes } from '../../store/actions/enumTypes'
 import { Redirect } from 'react-router-dom'
 import CreateOptions from "../common/options";
  
 class BusinessForm extends React.Component {
     state = {
-        name: '',
-        location: '',
-        type: '',
+        id: this.props.business ? this.props.business.id : null,
+        name: this.props.business ? this.props.business.name : '',
+        location: this.props.business ? this.props.business.location :'',
+        type: this.props.business ? this.props.business.type :'',
         errors: {},
         sending: false,
         done: false
     }
 
+    componentWillReceiveProps = nextProps => {
+        if(nextProps.business !== undefined) {
+            this.setState({
+                id: nextProps.business.id,
+                name: nextProps.business.name,
+                location: nextProps.business.location,
+                type: nextProps.business.type
+            });
+        }
+    }
+
     componentDidMount() {
         this.props.fetchBusinessTypes();
+        if (this.props.match.params.id) {
+            this.props.fetchBusiness(this.props.match.params.id)
+        }
     }
 
     handleChange = (e) => {
@@ -54,16 +69,28 @@ class BusinessForm extends React.Component {
         const isValid = Object.keys(errors).length === 0;
 
         if (isValid) {
-            const { name, location, type } = this.state;
+            const { id, name, location, type } = this.state;
             this.setState({ sending: true });
-            this.props.saveBusiness({ name, location, type }).then(
-                () => { this.setState({ done: true }) },
-                (err) => {
-                    let errors = {};
-                    errors.global = err.response.statusText;
-                    this.setState({ errors, sending: false });
-                }
-            );
+
+            if (id) {
+                this.props.updateBusiness({ id, name, location, type }).then(
+                    () => { this.setState({ done: true }) },
+                    (err) => {
+                        let errors = {};
+                        errors.global = err.response.statusText;
+                        this.setState({ errors, sending: false });
+                    }
+                );
+            } else {
+                this.props.saveBusiness({ name, location, type }).then(
+                    () => { this.setState({ done: true }) },
+                    (err) => {
+                        let errors = {};
+                        errors.global = err.response.statusText;
+                        this.setState({ errors, sending: false });
+                    }
+                );
+            }
         }
     }
 
@@ -128,13 +155,20 @@ class BusinessForm extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        businessTypes: state.enumTypes
+function mapStateToProps(state, props) {
+    let obj = {
+        businessTypes: state.enumTypes,
+        business: null
+    };
+
+    if (props.match.params.id) {
+        obj.business = state.businesses.find(x => x.id === parseInt(props.match.params.id))
     }
+
+    return obj;
 }
 
 export default connect(
     mapStateToProps,
-    { saveBusiness, fetchBusinessTypes }
+    { saveBusiness, fetchBusinessTypes, fetchBusiness, updateBusiness }
 )(BusinessForm);

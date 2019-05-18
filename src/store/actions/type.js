@@ -2,6 +2,8 @@
 export const SET_BUSINESSES = 'SET_BUSINESSES';
 export const ADD_BUSINESS = 'ADD_BUSINESS';
 export const DELETE_BUSINESS = 'DELETE_BUSINESS';
+export const SET_BUSINESS = 'SET_BUSINESS';
+export const UPDATE_BUSINESS = 'UPDATE_BUSINESS';
 
 // Staff
 export const SET_STAFF = 'SET_STAFF';
