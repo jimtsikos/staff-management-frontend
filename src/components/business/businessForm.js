@@ -70,7 +70,7 @@ class BusinessForm extends React.Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <div className={classnames("form-group", { error: !!this.state.errors.name })}>
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Name *</label>
                         <input type="text" 
                                 id="name" 
                                 className="form-control" 
@@ -81,7 +81,7 @@ class BusinessForm extends React.Component {
                         <span className="text-danger">{ this.state.errors.name }</span>
                     </div>
                     <div className={classnames("form-group", { error: !!this.state.errors.location })}>
-                        <label htmlFor="location">Location</label>
+                        <label htmlFor="location">Location *</label>
                         <input type="text" 
                                 id="location" 
                                 className="form-control" 

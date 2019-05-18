@@ -56,7 +56,7 @@ class StaffForm extends React.Component {
 
         // validation
         let errors = {};
-        if (this.state.business === '') errors.business = "You must select a business";
+        if (this.state.business === 0 || this.state.business === '') errors.business = "You must select a business";
         if (this.state.email === '') errors.email = "Email can't be empty";
         if (this.state.first_name === '') errors.first_name = "First name can't be empty";
         if (this.state.last_name === '') errors.last_name = "Last name can't be empty";
@@ -88,7 +88,7 @@ class StaffForm extends React.Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <div className={classnames("form-group", { error: !!this.state.errors.business })}>
-                        <label htmlFor="business">Business</label>
+                        <label htmlFor="business">Business *</label>
                         <select id="business" 
                                 className="form-control" 
                                 name="business" 
