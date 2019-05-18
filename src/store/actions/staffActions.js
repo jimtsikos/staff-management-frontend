@@ -1,4 +1,4 @@
-import { SET_STAFF, ADD_MEMBER, DELETE_MEMBER } from './type';
+import { SET_STAFF, ADD_MEMBER, DELETE_MEMBER, SET_MEMBER, UPDATE_MEMBER } from './type';
 
 import axios from 'axios';
 
@@ -61,6 +61,51 @@ export const deleteMember = id => {
         return axios.delete(`${apiUrl}/staff/member/${id}`)
         .then(response => {
             dispatch(memberDeleted(id))
+        })
+        .catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export const setMember = member => {
+    return {
+        type: SET_MEMBER,
+        member
+    }
+};
+
+export const fetchMember = id => {
+    return (dispatch) => {
+        return axios.get(`${apiUrl}/staff/member/${id}`)
+        .then(response => {
+            dispatch(setMember(response.data))
+        })
+        .catch(error => {
+            throw(error);
+        });
+    };
+}
+
+export const memberUpdated = member => {
+    return {
+        type: UPDATE_MEMBER,
+        member
+    }
+}
+
+export const updateBusiness = data => {
+    return (dispatch) => {
+        return axios.put(`${apiUrl}/staff/member/${data.id}`, { 
+            business_id: parseInt(data.business),
+            email: data.email,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            position: data.position,
+            phone_number: data.phone_number
+        })
+        .then(response => {
+            dispatch(addMember(response.data))
         })
         .catch(error => {
             throw(error);

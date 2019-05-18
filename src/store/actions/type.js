@@ -9,6 +9,8 @@ export const UPDATE_BUSINESS = 'UPDATE_BUSINESS';
 export const SET_STAFF = 'SET_STAFF';
 export const ADD_MEMBER = 'ADD_MEMBER';
 export const DELETE_MEMBER = 'DELETE_MEMBER';
+export const SET_MEMBER = 'SET_MEMBER';
+export const UPDATE_MEMBER = 'UPDATE_MEMBER';
 
 // Enum Types
 export const SET_BUSINESS_TYPES = 'SET_BUSINESS_TYPES';
