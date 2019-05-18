@@ -1,5 +1,5 @@
 import { SET_STAFF, ADD_MEMBER, DELETE_MEMBER, SET_MEMBER, UPDATE_MEMBER } from './type';
-
+import { STAFF_MANAGEMENT_API_URL } from './apiUrls'
 import axios from 'axios';
 
 const apiUrl = STAFF_MANAGEMENT_API_URL;
