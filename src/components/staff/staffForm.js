@@ -133,7 +133,7 @@ class StaffForm extends React.Component {
                         <span className="text-danger">{ this.state.errors.last_name }</span>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="position">Position</label>
+                        <label htmlFor="position">Position *</label>
                         <select id="position" 
                                 className="form-control" 
                                 name="position" 
