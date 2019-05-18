@@ -17,12 +17,15 @@ function App() {
         <Link to={'/'} className="navbar-brand">Staff Management</Link>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink to="/businesses" className="nav-link">Businesses</NavLink>
+            <NavLink to="/" className="nav-link">Businesses</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/staff/member/create" className="nav-link">Add member</NavLink>
           </li>
         </ul>
       </nav>
 
-      <Route exact path="/businesses" component={BusinessesPage}/>
+      <Route exact path="/" component={BusinessesPage}/>
       <Route path="/business/create" component={BusinessFormPage}/>
       <Route path="/business/edit/:id" component={BusinessFormPage}/>
       <Route path="/business/:id/staff" component={StaffPage}/>

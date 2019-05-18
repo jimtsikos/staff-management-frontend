@@ -34,7 +34,7 @@ class BusinessFormPage extends React.Component {
             <div className="container">
                 {
                     this.state.redirect 
-                    ? <Redirect to="/businesses" />
+                    ? <Redirect to="/" />
                     : <BusinessForm business={this.props.business} businessTypes={this.props.businessTypes} saveBusiness={this.saveBusiness} />
                 }
             </div>
