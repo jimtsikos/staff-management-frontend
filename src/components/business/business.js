@@ -14,7 +14,7 @@ export default function Business({ business, deleteBusiness, getErrors }) {
       () => { getErrors("") },
       (err) => {
         let errors = [];
-        err.response.data.errors.map(x => errors.push(x.msg))
+        err.response.data.errors.map(x => errors.push({ id: x.code, message: x.message }))
         getErrors(errors);
       }
     );
