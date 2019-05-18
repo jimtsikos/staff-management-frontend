@@ -1,6 +1,8 @@
 import React from 'react'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import CreateOptions from "../common/options";
+import FormButton from '../common/formButton'
  
 class BusinessForm extends React.Component {
     state = {
@@ -31,19 +33,6 @@ class BusinessForm extends React.Component {
             [e.target.name]: e.target.value,
             errors
         });
-    }
-
-    toggleButtonText = () => {
-        if (this.state.sending) {
-            return (
-                <span>
-                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    <span> Sending...</span>
-                </span>
-            );
-        } else {
-            return "Submit";
-        }
     }
 
     handleSubmit = (e) => {
@@ -116,7 +105,7 @@ class BusinessForm extends React.Component {
                     <button type="submit" 
                             className="btn btn-primary" 
                             disabled={this.state.sending ? "disabled" : ""}>
-                                {  this.toggleButtonText() }
+                                {  <FormButton sending={ this.state.sending } /> }
                     </button>
                 </form>
             </div>
@@ -128,6 +117,11 @@ class BusinessForm extends React.Component {
             </div>
         );
     }
+}
+
+BusinessForm.propTypes = {
+    businessTypes: PropTypes.array.isRequired,
+    saveBusiness: PropTypes.func.isRequired
 }
 
 export default BusinessForm;

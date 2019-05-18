@@ -22,7 +22,7 @@ export const fetchBusinesses = () => {
     };
 };
 
-export const addBusiness = business => {
+export const businessSaved = business => {
     return {
         type: ADD_BUSINESS,
         business
@@ -33,7 +33,7 @@ export const saveBusiness = data => {
     return (dispatch) => {
         return axios.post(`${apiUrl}/business`, { name: data.name, location: data.location, type: data.type })
         .then(response => {
-            dispatch(addBusiness(response.data))
+            dispatch(businessSaved(response.data))
         })
         .catch(error => {
             throw(error);

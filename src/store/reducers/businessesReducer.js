@@ -4,13 +4,6 @@ export default function businesses(state = [], action = {}) {
     switch(action.type) {
         case SET_BUSINESSES:
             return action.businesses;
-        case ADD_BUSINESS:
-            return [
-                ...state,
-                action.business
-            ]
-        case DELETE_BUSINESS:
-            return state.filter(x => x.id !== action.id);
         case SET_BUSINESS:
             const index = state.findIndex(x => x.id === action.business[0].id);
             if (index > -1) {
@@ -23,10 +16,17 @@ export default function businesses(state = [], action = {}) {
                     action.business[0]
                 ]
             }
+        case ADD_BUSINESS:
+            return [
+                ...state,
+                action.business
+            ]
         case UPDATE_BUSINESS:
             return state.map(x => {
                 return x.id === action.business.id ? action.business : x;
             });
+        case DELETE_BUSINESS:
+            return state.filter(x => x.id !== action.id);
         default: 
             return state;
     }

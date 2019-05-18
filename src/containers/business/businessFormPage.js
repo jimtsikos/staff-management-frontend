@@ -4,6 +4,7 @@ import { saveBusiness, fetchBusiness, updateBusiness } from '../../store/actions
 import { fetchBusinessTypes } from '../../store/actions/enumTypes'
 import { Redirect } from 'react-router-dom'
 import BusinessForm from '../../components/business/businessForm';
+import PropTypes from 'prop-types'
 
 class BusinessFormPage extends React.Component {
     state = {
@@ -38,6 +39,14 @@ class BusinessFormPage extends React.Component {
             </div>
         );
     }
+}
+
+BusinessFormPage.propTypes = {
+    businessTypes: PropTypes.array.isRequired,
+    saveBusiness: PropTypes.func.isRequired,
+    fetchBusinessTypes: PropTypes.func.isRequired,
+    fetchBusiness: PropTypes.func.isRequired,
+    updateBusiness: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state, props) {
