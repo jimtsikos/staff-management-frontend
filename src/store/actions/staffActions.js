@@ -2,7 +2,7 @@ import { SET_STAFF, ADD_MEMBER, DELETE_MEMBER, SET_MEMBER, UPDATE_MEMBER } from 
 
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:5000';
+const apiUrl = STAFF_MANAGEMENT_API_URL;
 
 export const setStaff = (staff) => {
     return {

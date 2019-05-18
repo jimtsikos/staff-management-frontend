@@ -1,0 +1,1 @@
+export const STAFF_MANAGEMENT_API_URL = 'http://localhost:5000';

@@ -1,7 +1,8 @@
 import { SET_BUSINESSES, ADD_BUSINESS, DELETE_BUSINESS, SET_BUSINESS, UPDATE_BUSINESS } from './type'
+import { STAFF_MANAGEMENT_API_URL } from './apiUrls'
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:5000';
+const apiUrl = STAFF_MANAGEMENT_API_URL;
 
 export const setBusinesses = (businesses) => {
     return {

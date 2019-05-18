@@ -1,7 +1,7 @@
 import { SET_BUSINESS_TYPES, SET_STAFF_POSITION } from './type'
 import axios from "axios";
 
-const apiUrl = 'http://localhost:5000';
+const apiUrl = STAFF_MANAGEMENT_API_URL;
 
 export const setBusinessTypes = businessTypes => {
     return {
