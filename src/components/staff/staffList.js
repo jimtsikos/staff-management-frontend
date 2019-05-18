@@ -48,7 +48,7 @@ export default function StaffList ({ staff, business, deleteMember, getErrors })
             { business === undefined || business.length === 0 ? noBusinessMessage : (
                 <div>
                     <h2>Business name: {business[0].name}</h2>
-                    <Link to="/staff/member/create" className="btn btn-info">Add Member</Link>
+                    <Link to={`/staff/member/${business[0].id}/create`} className="btn btn-info">Add Member</Link>
                     <div style={style}>
                         { staff === undefined || staff.length === 0 ? emptyMessage : staffList }
                     </div>

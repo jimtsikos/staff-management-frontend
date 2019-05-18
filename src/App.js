@@ -3,8 +3,8 @@ import { NavLink, Link, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BusinessesPage from './containers/business/businessesPage';
 import BusinessFormPage from './containers/business/businessFormPage';
-import StaffPage from './components/staff/staffPage';
-import StaffForm from './components/staff/staffForm';
+import StaffPage from './containers/staff/staffPage';
+import StaffFormPage from './containers/staff/staffFormPage';
 
 function App() {
   const style = {
@@ -29,8 +29,9 @@ function App() {
       <Route path="/business/create" component={BusinessFormPage}/>
       <Route path="/business/edit/:id" component={BusinessFormPage}/>
       <Route path="/business/:id/staff" component={StaffPage}/>
-      <Route path="/staff/member/create" component={StaffForm}/>
-      <Route path="/staff/member/create/business/:id" component={StaffForm}/>
+      <Route path="/staff/member/create" component={StaffFormPage}/>
+      <Route path="/staff/member/:business_id/create" component={StaffFormPage}/>
+      <Route path="/staff/member/edit/:id" component={StaffFormPage}/>
     </div>
   );
 }

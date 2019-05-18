@@ -94,7 +94,7 @@ export const memberUpdated = member => {
     }
 }
 
-export const updateBusiness = data => {
+export const updateMember = data => {
     return (dispatch) => {
         return axios.put(`${apiUrl}/staff/member/${data.id}`, { 
             business_id: parseInt(data.business),
@@ -105,7 +105,7 @@ export const updateBusiness = data => {
             phone_number: data.phone_number
         })
         .then(response => {
-            dispatch(addMember(response.data))
+            dispatch(memberUpdated(response.data))
         })
         .catch(error => {
             throw(error);

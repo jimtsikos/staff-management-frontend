@@ -1,32 +1,44 @@
 import React from "react";
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Redirect } from 'react-router-dom';
-import { fetchBusinesses } from '../../store/actions/businessesActions';
-import { saveMember } from "../../store/actions/staffActions";
 import CreateOptions from '../common/options'
+import FormButton from '../common/formButton'
 
 class StaffForm extends React.Component {
     state = {
-        business: '',
-        email: '',
-        first_name: '',
-        last_name: '',
-        position: '',
-        phone_number: '',
+        id: this.props.member ? this.props.member.id : null,
+        business: this.props.member 
+                    ? this.props.member.business_id 
+                    : this.props.business
+                        ? this.props.business.id
+                        : 0,
+        email: this.props.member ? this.props.member.email : '',
+        first_name: this.props.member ? this.props.member.first_name : '',
+        last_name: this.props.member ? this.props.member.last_name : '',
+        position: this.props.member ? this.props.member.position : '',
+        phone_number: this.props.member ? this.props.member.phone_number : '',
         errors: {},
-        sending: false,
-        done: false
+        sending: false
     }
 
-    componentDidMount() {
-        const { match } = this.props
-        const { id } = match.params
-        if (id !== undefined) {
-            this.setState({business: parseInt(id)})
+    componentWillReceiveProps = nextProps => {
+        if(nextProps.member !== undefined && nextProps.member !== null) {
+            this.setState({
+                id: nextProps.member.id,
+                business: nextProps.member.business_id,
+                email: nextProps.member.email,
+                first_name: nextProps.member.first_name,
+                last_name: nextProps.member.last_name,
+                position: nextProps.member.position,
+                phone_number: nextProps.member.phone_number
+            });
         }
-        this.props.fetchBusinesses();
+
+        if (nextProps.business !== undefined && nextProps.business !== null) {
+            this.setState({
+                business: nextProps.business.id
+            });
+        }
     }
 
     handleChange = (e) => {
@@ -37,19 +49,6 @@ class StaffForm extends React.Component {
             [e.target.name]: e.target.value,
             errors
         });
-    }
-
-    toggleButtonText = () => {
-        if (this.state.sending) {
-            return (
-                <span>
-                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    <span> Sending...</span>
-                </span>
-            );
-        } else {
-            return "Submit";
-        }
     }
 
     handleSubmit = (e) => {
@@ -66,16 +65,14 @@ class StaffForm extends React.Component {
         const isValid = Object.keys(errors).length === 0;
 
         if (isValid) {
-            const { business, email, first_name, last_name, position, phone_number } = this.state;
+            const { id, business, email, first_name, last_name, position, phone_number } = this.state;
             this.setState({ sending: true });
-            this.props.saveMember({ business, email, first_name, last_name, position, phone_number }).then(
-                () => { this.setState({ done: true }) },
-                (err) => {
-                    let errors = {};
-                    errors.global = err.response.statusText;
-                    this.setState({ errors, sending: false });
-                }
-            );
+            this.props.saveMember({ id, business, email, first_name, last_name, position, phone_number })
+            .catch((err) => {
+                let errors = {};
+                errors.global = err.response.statusText;
+                this.setState({ errors, sending: false });
+            });
         }
     }
 
@@ -143,9 +140,7 @@ class StaffForm extends React.Component {
                                 value={this.state.position} 
                                 onChange={this.handleChange}>
                                     <option value="">Select position</option>
-                                    <option value="kitchen">Kitchen</option>
-                                    <option value="service">Service</option>
-                                    <option value="PR">PR</option>
+                                    <CreateOptions properties={ this.props.staffPositions } />
                         </select>
                         <span className="text-danger">{ this.state.errors.position }</span>
                     </div>
@@ -162,7 +157,7 @@ class StaffForm extends React.Component {
                     <button type="submit" 
                             className="btn btn-primary" 
                             disabled={this.state.sending ? "disabled" : ""}>
-                                {  this.toggleButtonText() }
+                                { <FormButton sending={ this.state.sending } /> }
                     </button>
                 </form>
             </div>
@@ -170,23 +165,16 @@ class StaffForm extends React.Component {
 
         return (
             <div>
-                { this.state.done ? <Redirect to={`/business/${this.state.business}/staff`} /> : form };
+                { form }
             </div>
         )
     }
 }
 
 StaffForm.propTypes = {
-    fetchBusinesses: PropTypes.func.isRequired
+    businesses: PropTypes.array.isRequired,
+    staffPositions: PropTypes.array.isRequired,
+    saveMember: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
-    return {
-        businesses: state.businesses
-    }
-}
-
-export default connect(
-    mapStateToProps,
-    { fetchBusinesses, saveMember }
-)(StaffForm);
+export default StaffForm;

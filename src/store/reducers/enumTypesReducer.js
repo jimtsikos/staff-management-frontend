@@ -11,7 +11,10 @@ export default function enumTypes(state = [], action = {}) {
             return businessTypesArray 
         case SET_STAFF_POSITION:
             let staffPositionsArray = [];
-            action.staffPositions.map(x => staffPositionsArray.push(x.types.toString()))
+            action.staffPositions.map(x => staffPositionsArray.push({ 
+                id: x.types.toString(),
+                name: x.types.toString()
+            }))
             return staffPositionsArray
         default: 
             return state;

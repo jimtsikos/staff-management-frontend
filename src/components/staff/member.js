@@ -29,7 +29,7 @@ export default function Member ({ member, deleteMember, getErrors }) {
       <td>{ member.position }</td>
       <td>{ member.phone_number }</td>
       <td>
-        <Link to={`/staff/${member.id}`} className="btn btn-primary">Edit</Link>
+        <Link to={`/staff/member/edit/${member.id}`} className="btn btn-primary">Edit</Link>
       </td>
       <td>
         {<button className="btn btn-danger" type="button" style={ button } onClick={handleDelete}>

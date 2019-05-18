@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import StaffList from './staffList'
+import StaffList from '../../components/staff/staffList'
 import { fetchStaff, deleteMember } from '../../store/actions/staffActions' 
 import { fetchBusinesses } from '../../store/actions/businessesActions' 
-import ErrorMessages from '../common/errorMessages';
+import ErrorMessages from '../../components/common/errorMessages';
 
 class StaffPage extends React.Component {
     state = {
