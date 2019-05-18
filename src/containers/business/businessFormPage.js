@@ -13,8 +13,9 @@ class BusinessFormPage extends React.Component {
 
     componentDidMount() {
         this.props.fetchBusinessTypes();
-        if (this.props.match.params.id) {
-            this.props.fetchBusiness(this.props.match.params.id)
+        const { match } = this.props
+        if (match.params.id) {
+            this.props.fetchBusiness(match.params.id)
         }
     }
 
@@ -50,13 +51,15 @@ BusinessFormPage.propTypes = {
 }
 
 function mapStateToProps(state, props) {
+    const { match } = props
+
     let obj = {
         businessTypes: state.enumTypes,
         business: null
     };
 
-    if (props.match.params.id) {
-        obj.business = state.businesses.find(x => x.id === parseInt(props.match.params.id))
+    if (match.params.id) {
+        obj.business = state.businesses.find(x => x.id === parseInt(match.params.id))
     }
 
     return obj;

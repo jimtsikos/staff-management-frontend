@@ -12,7 +12,8 @@ class StaffPage extends React.Component {
     }
 
     componentDidMount() {
-        const { id } = this.props.match.params
+        const { match } = this.props
+        const { id } = match.params
         this.props.fetchStaff(parseInt(id));
         this.props.fetchBusinesses();
     }
@@ -22,7 +23,8 @@ class StaffPage extends React.Component {
     }
 
     render() {
-        const { id } = this.props.match.params
+        const { match } = this.props
+        const { id } = match.params
 
         return (
             <div className="container">
