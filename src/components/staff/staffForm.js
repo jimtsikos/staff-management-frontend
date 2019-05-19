@@ -101,7 +101,7 @@ class StaffForm extends React.Component {
                     </div>
                     <div className={classnames("form-group", { error: !!this.state.errors.email })}>
                         <label htmlFor="email">Email *</label>
-                        <input type="text" 
+                        <input type="email" 
                                 id="email" 
                                 className="form-control" 
                                 name="email" 
